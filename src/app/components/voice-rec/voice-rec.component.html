@@ -1,0 +1,6 @@
+<div>
+  <textarea cols="30" rows="10" [(ngModel)]="model"></textarea>
+  <button (click)="getSpeech()" [class.record]="start === true">
+    <img src="assets/mic.svg" alt="microphone" />
+  </button>
+</div>

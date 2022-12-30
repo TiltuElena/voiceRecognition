@@ -1,4 +1,4 @@
-.container{
+.container {
   display: flex;
   gap: 50px;
   align-items: center;
@@ -13,12 +13,12 @@
   width: 200px;
   gap: 10px;
   font-size: 20px;
-
-  select {
-    font-size: 17px;
-
-    option {
-      font-size: 17px;
-    }
-  }
 }
+.select select {
+  font-size: 17px;
+}
+.select select option {
+  font-size: 17px;
+}
+
+/*# sourceMappingURL=app.component.css.map */
