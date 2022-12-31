@@ -11,15 +11,19 @@ export class VoiceRecComponent implements OnInit {
   @Input() language: any = '';
   start: boolean = false;
   model: string = ''
-  constructor(private voiceRec: VoiceRecognitionService) {}
+  subscription: any;
+  constructor(public voiceRec: VoiceRecognitionService) {}
 
   ngOnInit(): void {
     this.initVoiceInput();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
+
   initVoiceInput() {
-    this.voiceRec.init(this.language).subscribe(() => {});
-    this.voiceRec.speechInput().pipe(debounceTime(300)).subscribe((input) => {
+   this.subscription = this.voiceRec.speechInput().pipe(debounceTime(300)).subscribe((input: string) => {
      this.model = input;
     });
   }

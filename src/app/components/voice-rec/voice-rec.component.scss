@@ -23,9 +23,9 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 50%;
   background: white;
-  width: 50px;
+  width: 60px;
   height: 60px;
   border: 1px solid white;
   cursor: pointer;
@@ -41,4 +41,42 @@ textarea {
   font-size: 25px;
   resize: none;
   box-shadow: 2px 1px 10px dimgray;
+}
+
+.stop {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
+.container {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  border: 2px solid darkred;
+  animation-duration: 1.5s;
+  animation-name: slide;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes slide {
+  from {
+    width: 59px;
+    height: 59px;
+  }
+
+  to {
+    height: 80px;
+    width: 80px;
+  }
 }
