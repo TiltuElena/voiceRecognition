@@ -1,19 +1,17 @@
 <div>
   <textarea cols="30" rows="10" [(ngModel)]="model" id="input"></textarea>
   <div class="container">
-    <div [class.wave]="voiceRec.recognition.isActive">
-      <button
-        (click)="getSpeech()"
-        [class.record]="voiceRec.recognition.isActive"
-      >
-        <img
-          src="assets/mic.svg"
-          alt="microphone"
-          *ngIf="!voiceRec.recognition.isActive; else stop"
-        />
-        <ng-template #stop><div class="stop">Stop</div></ng-template>
-      </button>
-    </div>
+    <div [@smallLarge]="this.voiceRec.isTalking ? 'large' : 'small'" class="wave"></div>
+    <button
+      (click)="getSpeech()"
+      [class.record]="voiceRec.recognition.isActive"
+    >
+      <img
+        src="assets/mic.svg"
+        alt="microphone"
+        *ngIf="!voiceRec.recognition.isActive; else stop"
+      />
+      <ng-template #stop><div class="stop">Stop</div></ng-template>
+    </button>
   </div>
 </div>
-

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 
 declare let webkitSpeechRecognition: any;
 declare let SpeechRecognition: any;
@@ -7,12 +7,11 @@ declare let SpeechRecognition: any;
 @Injectable({
   providedIn: 'root',
 })
-
 export class VoiceRecognitionService {
   recognition: any = new webkitSpeechRecognition() || new SpeechRecognition();
-  public text = '';
   private voiceToTextSubject: Subject<string> = new Subject();
   private newWords: string = '';
+  public isTalking: boolean = false;
   constructor() {}
 
   speechInput() {
@@ -27,28 +26,22 @@ export class VoiceRecognitionService {
     this.recognition.start();
 
     this.recognition.addEventListener('result', (e: any) => {
+      this.isTalking = !this.isTalking
+
       this.newWords = Array.from(e.results)
         .map(([result]: any) => result.transcript)
         .join('');
-      this.voiceToTextSubject.next( this.text || this.newWords);
+      this.voiceToTextSubject.next(this.newWords);
     });
 
     this.recognition.addEventListener('end', () => {
       this.recognition.stop();
-      this.recognition.isActive = false
+      this.recognition.isActive = false;
     });
   }
 
-  stop() {
-    this.wordConcat();
+  stopRec() {
     this.recognition.stop();
     this.recognition.isActive = false;
-  }
-
-  wordConcat() {
-    this.text = `${this.text.trim()} ${this.newWords}`.trim();
-    this.newWords = '';
-    this.voiceToTextSubject.next(this.text);
-    this.text = ''
   }
 }
